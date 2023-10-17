@@ -115,7 +115,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     })
 
     it('acessa a página da política de privacidade removendo o target e então clicando no link', () => {
-        cy.get('a').invoke('removeAttr', 'target').click()
+        cy.get('').invoke('removeAttr', 'target').click()
         cy.get('#title').should('have.text', 'CAC TAT - Política de privacidade')
     })
 })
