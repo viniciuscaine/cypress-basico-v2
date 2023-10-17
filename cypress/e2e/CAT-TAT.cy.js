@@ -29,13 +29,15 @@ describe('Central de Atendimento ao Cliente TAT', function () {
         cy.get('#email').type('vinicius@emailcom')
         cy.get('#open-text-area').type('Texto teste Texto teste Texto teste Texto teste Texto teste', { delay: 0 })
         cy.contains('button', 'Enviar').click()
-        cy.get('.error').should('be.visible')     
+        cy.get('.error').should('be.visible')
         cy.tick(3000)
         cy.get('.error').should('not.be.visible')
     })
 
-    it('campo de telefone continua vazio se números não forem digitados', () => {
-        cy.get('#phone').type('abcabc').should('have.value', '')
+    Cypress._.times(5, function () {
+        it.only('campo de telefone continua vazio se números não forem digitados', () => {
+            cy.get('#phone').type('abcabc').should('have.value', '')
+        })
     })
 
     it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
