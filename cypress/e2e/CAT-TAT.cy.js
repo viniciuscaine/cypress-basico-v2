@@ -35,7 +35,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     })
 
     Cypress._.times(5, function () {
-        it.only('campo de telefone continua vazio se números não forem digitados', () => {
+        it('campo de telefone continua vazio se números não forem digitados', () => {
             cy.get('#phone').type('abcabc').should('have.value', '')
         })
     })
@@ -131,5 +131,23 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     it('acessa a página da política de privacidade removendo o target e então clicando no link', () => {
         cy.get('a').invoke('removeAttr', 'target').click()
         cy.get('#title').should('have.text', 'CAC TAT - Política de privacidade')
+    })
+
+    it('exibe e esconde as mensagens de sucesso e erro usando o .invoke', () => {
+        cy.get('.success').should('not.be.visible')
+            .invoke('show').should('be.visible').and('contain', 'Mensagem enviada com sucesso.')
+            .invoke('hide').should('not.be.visible')
+
+        cy.get('.error').should('not.be.visible')
+            .invoke('show').should('be.visible').and('contain', 'Valide os campos obrigatórios!')
+            .invoke('hide').should('not.be.visible')
+    })
+
+    it.only('preenche a area de texto usando o comando invoke', () => {
+        const longText = Cypress._.repeat('0123456789', 20)
+
+        cy.get('#open-text-area')
+            .invoke('val', longText)
+            .should('have.value', longText)
     })
 })
