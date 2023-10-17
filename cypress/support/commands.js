@@ -25,10 +25,13 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('fillMandatoryFieldsAndSubmit', (nome, sobrenome, email, texto) => {
+    cy.clock()
     cy.get('#firstName').type(nome)
     cy.get('#lastName').type(sobrenome)
     cy.get('#email').type(email)
     cy.get('#open-text-area').type(texto)
     cy.contains('button', 'Enviar').click()
     cy.get('.success').should('be.visible')
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible')
 })
